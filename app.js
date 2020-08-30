@@ -12,11 +12,15 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const morgan = require("morgan")
+const passport = require("passport")
 // 
 mongoose.connect(keys.mongoURI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 }).then(() => console.log("mongo is connected"))
+app.use(passport.initialize()) // защита роутов, подключаем passport
+require("./middleware/passport")(passport)
 app.use(morgan("dev"))
 app.use(bodyParser.urlencoded({
     extended: true
@@ -29,5 +33,5 @@ app.use("/api/auth", authRoutes)
 app.use("/api/category", categoryRoutes)
 app.use("/api/order", orderRoutes)
 app.use("/api/position", positionRoutes)
-// 
+
 module.exports = app
