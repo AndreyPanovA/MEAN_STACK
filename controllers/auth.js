@@ -5,10 +5,12 @@ const keys = require("../config/keys")
 const errorHandler = require("../utils/errorHandler")
 
 module.exports.login = async function (req, res) {
+
     const candidate = await User.findOne({
         email: req.body.email
     })
     if (candidate) {
+        console.log(candidate)
         // Если он есть,то проверяем пароль
         const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
         if (passwordResult) {

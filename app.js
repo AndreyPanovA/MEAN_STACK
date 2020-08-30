@@ -22,6 +22,7 @@ mongoose.connect(keys.mongoURI, {
 app.use(passport.initialize()) // защита роутов, подключаем passport
 require("./middleware/passport")(passport)
 app.use(morgan("dev"))
+app.use("/uploads", express.static("uploads"))
 app.use(bodyParser.urlencoded({
     extended: true
 }))
