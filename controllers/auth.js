@@ -2,6 +2,7 @@ const User = require("../models/User")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const keys = require("../config/keys")
+const errorHandler = require("../utils/errorHandler")
 
 module.exports.login = async function (req, res) {
     const candidate = await User.findOne({
@@ -66,7 +67,8 @@ module.exports.register = async function (req, res) {
                 message: "User was created (succes)"
             })
         } catch (e) {
-            console.log("Создание пользователя в базе с ошибкой:", e)
+            // console.log("Создание пользователя в базе с ошибкой:", e)
+            errorHandler(res, e)
         }
 
     }
