@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
 const errorHandler = require("../utils/errorHandler");
-
+// ;slad;alskd;lkas
 module.exports.login = async function (req, res) {
   const candidate = await User.findOne({
     email: req.body.email,
