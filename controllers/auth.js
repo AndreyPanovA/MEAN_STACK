@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
 const errorHandler = require("../utils/errorHandler");
-// ddlskdlkslkdl
+
 module.exports.login = async function (req, res) {
   const candidate = await User.findOne({
     email: req.body.email,
@@ -18,6 +18,7 @@ module.exports.login = async function (req, res) {
     if (passwordResult) {
       // Пароли совпали с бд, генерим токен
       const token = jwt.sign(
+        // метод генерации токена
         {
           email: candidate.email,
           userId: candidate._id,
@@ -43,12 +44,6 @@ module.exports.login = async function (req, res) {
       message: "No such user",
     });
   }
-  // res.json({
-  //     login: {
-  //         email: req.body.email,
-  //         password: req.body.password
-  //     }
-  // })
 };
 module.exports.register = async function (req, res) {
   const candidate = await User.findOne({
@@ -61,7 +56,7 @@ module.exports.register = async function (req, res) {
       message: "User already exist",
     });
   } else {
-    const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10); // делаем hash для будующего пароля
     const password = req.body.password;
     const user = new User({
       email: req.body.email,
